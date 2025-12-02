@@ -6,6 +6,7 @@ require("dotenv").config();
 const port = 3000;
 
 app.use(cors())
+app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.gfwnnwz.mongodb.net/?appName=Cluster0`;
 
@@ -35,6 +36,18 @@ async function run() {
       
       res.send(result)
     })
+
+
+    app.post("/courses", async (req, res) => {
+      const data = req.body;
+      console.log(data);
+      const result = await courseCollection.insertOne(data);
+
+      res.send({
+        success: true,
+        result,
+      });
+    });
 
 
 
