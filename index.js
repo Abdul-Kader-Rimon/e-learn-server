@@ -104,6 +104,11 @@ async function run() {
 
       res.send(result)
     });
+    app.get("/enrolled-courses", async (req, res) => {
+      const result = await enrolledcourseCollection.find().toArray();
+
+      res.send(result)
+    });
 
 
 
