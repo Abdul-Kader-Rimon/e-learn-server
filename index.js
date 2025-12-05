@@ -30,11 +30,15 @@ async function run() {
 
 
     app.get("/courses", async (req, res) => {
-      const result = await
-        courseCollection.find().toArray()
+      const { category } = req.query
       
-      
-      res.send(result)
+      const query = {}
+      if (category) {
+        query.category = category
+      }
+
+      const result = await courseCollection.find(query).toArray();
+      res.send(result);
     })
 
     app.get("/courses/:id", async (req, res) => {
