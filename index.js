@@ -46,6 +46,31 @@ async function run() {
       res.send(result)
     })
 
+    app.get("/my-courses", async(req, res) => {
+      const  email  = req.query.email
+      const result = await courseCollection.find({ email: email }).toArray()
+      res.send(result)
+    })
+
+    app.put("/update-course/:id", async (req, res) => {
+      const data = req.body;
+      const id = req.params;
+      const objectId = new ObjectId(id);
+      const filter = { _id: objectId };
+      
+
+      const updateCourse = {
+        $set: data
+      }
+
+      const result = await courseCollection.updateOne(filter, updateCourse);
+
+      res.send({
+        success: true,
+        result,
+      })
+    })
+
 
     app.post("/courses", async (req, res) => {
       const data = req.body;
@@ -54,10 +79,7 @@ async function run() {
       console.log(data);
       const result = await courseCollection.insertOne(data);
 
-      res.send({
-        success: true,
-        result,
-      });
+      res.send(result);
     });
 
 
