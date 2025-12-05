@@ -27,6 +27,7 @@ async function run() {
  
     const db = client.db("e-learn")
     const courseCollection = db.collection("courses")
+    const enrolledcourseCollection = db.collection("enrolled-courses")
 
 
     app.get("/courses", async (req, res) => {
@@ -93,6 +94,15 @@ async function run() {
       const result = await courseCollection.insertOne(data);
 
       res.send(result);
+    });
+
+    app.post("/enrolled-courses", async (req, res) => {
+      const data = req.body
+      console.log(data)
+
+      const result = await enrolledcourseCollection.insertOne(data);
+
+      res.send(result)
     });
 
 
