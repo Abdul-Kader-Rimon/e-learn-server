@@ -57,6 +57,12 @@ async function run() {
       res.send(result)
     })
 
+    app.get("/popular-courses", async (req, res) => {
+      const result = await courseCollection.find({}).limit(6).toArray();
+
+      res.send(result)
+    })
+
     app.put("/update-course/:id", async (req, res) => {
       const data = req.body;
       const id = req.params;
